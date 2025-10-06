@@ -1,0 +1,45 @@
+# docker-compose.yml
+
+version: '3.8'
+
+services:
+  basic-webapp:
+    build: . # Build the image from the Dockerfile in the current directory
+    container_name: basic-webapp
+    ports:
+      - "8080:8080"
+    networks:
+      - monitoring-net
+
+  prometheus:
+    image: prom/prometheus:v2.51.2
+    container_name: prometheus
+    ports:
+      - "9090:9090"
+    volumes:
+      - ./prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+    networks:
+      - monitoring-net
+    depends_on:
+      - basic-webapp
+
+  grafana:
+    image: grafana/grafana-oss:10.4.2
+    container_name: grafana
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./grafana/provisioning:/etc/grafana/provisioning
+    environment:
+      - GF_SECURITY_ADMIN_USER=admin
+      - GF_SECURITY_ADMIN_PASSWORD=admin
+    networks:
+      - monitoring-net
+    depends_on:
+      - prometheus
+
+networks:
+  monitoring-net:
+    driver: bridge

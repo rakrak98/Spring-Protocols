@@ -1,7 +1,5 @@
 package it.simplewebapp;
 
-import com.intuit.karate.gatling.KarateProtocol;
-import com.intuit.karate.gatling.KarateProtocol$;
 import com.intuit.karate.gatling.javaapi.KarateProtocolBuilder;
 import io.gatling.javaapi.core.ScenarioBuilder;
 import io.gatling.javaapi.core.Simulation;

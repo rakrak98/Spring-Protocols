@@ -27,7 +27,7 @@ public class MockServer {
                         .withStatus(200)
                         .withHeader("Content-Type", "application/json")
                         .withBody("{\"status\": \"Resource created successfully!\"}")
-                        .withRandomDelay(new UniformDistribution(10, 100))));
+                        .withFixedDelay(100)));
         Runtime.getRuntime().addShutdownHook(new Thread(wireMockServer::stop));
     }
 
