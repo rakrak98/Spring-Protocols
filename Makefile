@@ -1,9 +1,5 @@
 # Makefile
 
-# Default values for test parameters, can be overridden from the command line
-# Example: make test TPS=20 DURATION=30
-TPS ?= 10
-DURATION ?= 10
 
 # Phony targets prevent conflicts with files of the same name
 .PHONY: all up down logs test clean help
@@ -24,7 +20,7 @@ logs: ## 📜 View and follow the logs from all services
 
 test: ## 🎯 Run the Gatling performance test against the webapp
 	@echo "--- Running performance test (TPS=$(TPS), Duration=$(DURATION)s)... ---"
-	./mvnw -pl performance-test -f pom.xml gatling:test -Dtps=$(TPS) -Dduration=$(DURATION)
+	./mvnw -pl performance-test -f pom.xml gatling:test
 	@echo "--- Performance test finished. Report is in performance-test/target/gatling ---"
 
 clean: ## 🧹 Stop services and remove all associated data (volumes)

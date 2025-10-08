@@ -10,6 +10,13 @@ services:
       - "8080:8080"
     networks:
       - monitoring-net
+    environment:
+      - MAVEN_OPTS="Djdk.tracePinnedThreads=full"
+    deploy:
+      resources:
+        limits:
+          cpus: '0.50' # Limit to 50% of one CPU core
+          memory: 512M  # Limit to 512 Megabytes of memory
 
   prometheus:
     image: prom/prometheus:v2.51.2
